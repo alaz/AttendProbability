@@ -2,11 +2,16 @@ object AttendProbability {
   def calculate(probabilities: List[Double], needed: Int): Double = {
     val N = probabilities.length
 
+    // precalculate the probabilities of attend/not-attend per person
+    // (we want fast lookup by index)
+    val pYes = probabilities.toIndexedSeq
+    val pNo = probabilities.map(1.0-).toIndexedSeq
+
     // probability that a given set of persons attends
     def P(att: Set[Int]) =
-      probabilities.zipWithIndex.map { case (p,i) =>
-        if (att contains i) p
-        else 1.0-p
+      (0 until N).map { i =>
+        if (att contains i) pYes(i)
+        else pNo(i)
       }.product
 
     // from `needed` up to `N` could be attending
