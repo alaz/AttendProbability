@@ -1,4 +1,4 @@
-object AttP {
+object AttendProbability {
   def calculate(probabilities: List[Double], needed: Int): Double = {
     val N = probabilities.length
 
