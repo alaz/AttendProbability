@@ -43,6 +43,11 @@ class AttendProbability(personsP: List[Double]) {
 }
 
 object AttendProbability {
+  /** Given probabilities of each participant attending in "probabilities",
+    * calculate the probability that at least "needed" participants will participate.
+    *
+    * The probability has to be accurate to the precision of 0.001.
+    */
   def calculate(probabilities: List[Double], needed: Int): Double = {
     val probability = new AttendProbability(probabilities)
     probability.atLeast(needed)
