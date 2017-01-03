@@ -6,8 +6,8 @@ class AttendProbability(personsP: List[Double]) {
 
   // precalculate the probabilities of attend/not-attend per person
   // (we want fast lookup by index)
-  val pYes = personsP.toIndexedSeq
-  val pNo = personsP.map(1.0.-).toIndexedSeq
+  val pYes = personsP.toArray
+  val pNo = personsP.map(1.0.-).toArray
 
   // probability that a given set of persons attends
   // Complexity: O(n)
