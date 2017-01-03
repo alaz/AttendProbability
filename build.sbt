@@ -13,4 +13,6 @@ libraryDependencies ++= Seq(
   "org.scalacheck" %% "scalacheck" % "1.13.4" % "test"
 )
 
-testOptions in Test += Tests.Argument("-oDS")
+testOptions in Test += Tests.Argument(TestFrameworks.ScalaTest, "-oD", "-W", "10", "5")
+
+logBuffered in Test := false
