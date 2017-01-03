@@ -10,6 +10,7 @@ class AttendProbability(personsP: List[Double]) {
   val pNo = personsP.map(1.0.-).toIndexedSeq
 
   // probability that a given set of persons attends
+  // Complexity: O(n)
   def P(att: Set[Int]) =
     (0 until N).map { i =>
       if (att contains i) pYes(i)
@@ -17,6 +18,10 @@ class AttendProbability(personsP: List[Double]) {
     }.product
 
   // probability of exact `n` attendees
+  // Complexity:
+  // * combinations is C(k,n) ~ O(n^min(k,n-k)) for n>>1
+  // * every P is O(n)
+  // total = O(n^(1+min(k,n-k)))
   def exact(n: Int) = {
     require(n >= 0 && n <= N, "`needed` should be from 0 to the number of probabilities")
     if (n == 0) P(Set.empty)
@@ -24,6 +29,7 @@ class AttendProbability(personsP: List[Double]) {
   }
 
   // probability at least `n` attendees (=inclusive)
+  // Complexity: O(n^(2+min(k,n-k)))
   def atLeast(n: Int) = {
     require(n >= 0 && n <= N, "`needed` should be from 0 to the number of probabilities")
     (n to N).map(exact).sum
